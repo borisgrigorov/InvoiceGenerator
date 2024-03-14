@@ -214,7 +214,7 @@ class Invoice(UnicodeProperty):
     :param client: client of the invoice
     :type client: Client
     :param creator: creator of the invoice
-    :type creator: Creator
+    :type creator: Creator or None
     :param provider: provider of the invoice
     :type provider: Provider
     """
@@ -257,7 +257,6 @@ class Invoice(UnicodeProperty):
     def __init__(self, client, provider, creator):
         assert isinstance(client, Client)
         assert isinstance(provider, Provider)
-        assert isinstance(creator, Creator)
 
         self.client = client
         self.provider = provider
@@ -339,8 +338,8 @@ class Correction(Invoice):
     _attrs = ('number', 'reason', 'title', 'variable_symbol', 'specific_symbol', 'paytype',
               'date', 'payback', 'taxable_date')
 
-    def __init__(self, client, provider, creator):
-        super(Correction, self).__init__(client, provider, creator)
+    def __init__(self, client, provider):
+        super(Correction, self).__init__(client, provider,)
 
 
 class QrCodeBuilder(object):

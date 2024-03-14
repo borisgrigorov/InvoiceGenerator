@@ -164,7 +164,8 @@ class SimpleInvoice(BaseInvoice):
     def _addMetaInformation(self, pdf):
         pdf.setCreator(self.invoice.provider.summary)
         pdf.setTitle(self.invoice.title)
-        pdf.setAuthor(self.invoice.creator.name)
+        if(self.invoice.creator):
+            pdf.setAuthor(self.invoice.creator.name)
 
     def _drawTitle(self):
         # Up line
@@ -449,7 +450,8 @@ class SimpleInvoice(BaseInvoice):
         else:
             self.pdf.rect(LEFT * mm, (TOP - i - 11) * mm, (LEFT + 156) * mm, (i + 13) * mm, stroke=True, fill=False)  # 140,142
 
-        self._drawCreator(TOP - i - 20, self.LEFT + 98)
+        if(self.invoice.creator):
+            self._drawCreator(TOP - i - 20, self.LEFT + 98)
 
     def _drawCreator(self, TOP, LEFT):
         height = 20*mm
